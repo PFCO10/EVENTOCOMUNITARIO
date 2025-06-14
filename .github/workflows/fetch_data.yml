@@ -1,0 +1,28 @@
+name: Fetch Discord Data
+
+on:
+  workflow_dispatch:  # para que lo puedas lanzar manualmente desde GitHub
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Obtener miembros y mensajes
+      env:
+        GUILD_ID: ${{ secrets.GUILD_ID }}
+        DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        DISCORD_BOT_TOKEN2: ${{ secrets.DISCORD_BOT_TOKEN2 }}
+      run: |
+        # Aquí pones un script en bash, node o python para llamar a la API de Discord
+        # Ejemplo simple en bash con curl para obtener miembros (necesitas permisos adecuados)
+
+        curl -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+          "https://discord.com/api/guilds/$GUILD_ID/members?limit=1000" > miembros.json
+
+        # Luego puedes procesar esos datos y guardarlos donde GitHub Pages los pueda leer,
+        # por ejemplo en un archivo JSON dentro de la rama gh-pages.
+
